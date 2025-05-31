@@ -6,17 +6,22 @@ time_bound = input("Is it time-bound? (yes/no): ").lower()
 
 match priority:
     case "high":
-        reminder = f"Reminder: '{task}' is a high priority task"
+        base_msg = f"Reminder: '{task}' is a high priority task"
     case "medium":
-        reminder = f"Reminder: '{task}' is a medium priority task"
+        base_msg = f"Reminder: '{task}' is a medium priority task"
     case "low":
-        reminder = f"Note: '{task}' is a low priority task"
+        base_msg = f"Note: '{task}' is a low priority task"
     case _:
-        reminder = "Priority level not recognized."
+        print("Sorry, priority level not recognized.")
+        exit()  # نوقف البرنامج لو الأولوية غير صحيحة
 
-if time_bound == "yes" and priority in ["high", "medium", "low"]:
-    reminder += " that requires immediate attention today!"
-elif priority in ["high", "medium", "low"]:
-    reminder += ". Consider completing it when you have free time."
+if time_bound == "yes":
+    print(base_msg + " that requires immediate attention today!")
+elif time_bound == "no":
+    if priority == "low":
+        print(base_msg + ". Consider completing it when you have free time.")
+    else:
+        print(base_msg + ". Try to complete it soon.")
+else:
+    print("Sorry, the time-bound input is invalid. Please enter yes or no.")
 
-print(reminder)
